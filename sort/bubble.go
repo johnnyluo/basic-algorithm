@@ -3,6 +3,7 @@ package sort
 import "errors"
 
 // Bubble sort algorithm
+// complexity O(n*n)
 func Bubble(src []interface{}, c Comparable) ([]interface{}, error) {
 	if nil == c {
 		return nil, errors.New("no comparable")

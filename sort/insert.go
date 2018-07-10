@@ -38,7 +38,10 @@ func Insert(src []interface{}, c Comparable) ([]interface{}, error) {
 }
 
 // Insert1 second implementation
-// maximum time complexity o(n*n)
+// maximum time complexity O(N*N)
+// this is doing in place sort
+// when the given src is already sorted , then it only take O(N)
+// when the given src is sorted in descending , then it will take O(N*N)
 func Insert1(src []interface{}, c Comparable) ([]interface{}, error) {
 	if nil == c {
 		return nil, errors.New("no comparable")
