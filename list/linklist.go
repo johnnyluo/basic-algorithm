@@ -9,9 +9,9 @@ type LinkList struct {
 
 // LinkNode node
 type LinkNode struct {
-	next  *LinkNode
-	prev  *LinkNode
-	value interface{}
+	Next  *LinkNode
+	Prev  *LinkNode
+	Value interface{}
 }
 
 // NewLinkList create a new double link list
@@ -24,21 +24,21 @@ func NewLinkList() (*LinkList, error) {
 func (ll *LinkList) AddNode(value interface{}) error {
 	if ll.head == nil && ll.tail == nil { // when the whole list is empty
 		node := &LinkNode{
-			next:  nil,
-			prev:  nil,
-			value: value,
+			Next:  nil,
+			Prev:  nil,
+			Value: value,
 		}
 		ll.head = node
 		ll.tail = node
 		return nil
 	}
 	newNode := &LinkNode{
-		next:  nil,
-		prev:  ll.tail,
-		value: value,
+		Next:  nil,
+		Prev:  ll.tail,
+		Value: value,
 	}
 
-	ll.tail.next = newNode
+	ll.tail.Next = newNode
 	ll.tail = newNode
 	return nil
 }
@@ -48,29 +48,31 @@ func (ll *LinkList) Remove(value interface{}) error {
 	return nil
 }
 
-// traverse LinkList, O(N)
-func (ll *LinkList) traverse(c func(node *LinkNode)) error {
+// Traverse LinkList, O(N)
+func (ll *LinkList) Traverse(c func(node *LinkNode)) error {
 	node := ll.head
 	for {
 		if nil == node {
 			break
 		}
 		c(node)
-		node = node.next
+		node = node.Next
 	}
 	return nil
 }
 
-func (ll *LinkList) reverse() error {
+// Reverse link list
+func (ll *LinkList) Reverse() error {
 	node := ll.tail
+	ll.head = node
 	for {
-		if node.prev == nil {
+		node.Prev, node.Next = node.Next, node.Prev
+		if node.Next == nil {
+			ll.tail = node
 			break
 		}
-		node.prev, node.next = node.next, node.prev
-		node = node.next
+		node = node.Next
 	}
 	// swap the head and tail
-	ll.head, ll.tail = ll.tail, ll.head
 	return nil
 }
